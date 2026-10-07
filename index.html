@@ -21,7 +21,7 @@
 <script>
 const CATS=[['EdDev','Educational Development'],['Classroom Services','CS'],['Learning Center','Learning Center'],['Overall CTL','Overall CTL'],['Personal Admin','expenses, travel, etc.'],['Tori / Ad Hoc Admin','ad hoc support'],['EdD','doctoral work'],['Danforth Staff Council','Staff Council']];
 const KEY='katWorkClockV1';let state=load();let range='today';
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{active:null,entries:[]}}catch(e){return{active:null,entries:[]}}}function save(){localStorage.setItem(KEY,JSON.stringify(state)}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{active:null,entries:[]}}catch(e){return{active:null,entries:[]}}}function save(){localStorage.setItem(KEY,JSON.stringify(state));}
 const $=s=>document.querySelector(s),fmtTime=d=>new Date(d).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}),fmtDate=d=>new Date(d).toLocaleDateString([],{month:'short',day:'numeric'});function dur(ms){let m=Math.round(ms/60000);if(m<60)return m+'m';return Math.floor(m/60)+'h '+(m%60)+'m'}function esc(s){let d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
 function closeActive(end=Date.now()){if(!state.active)return;state.entries.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),category:state.active.category,note:state.active.note||'',start:state.active.start,end});state.active=null;save()}
 function start(category){let now=Date.now();closeActive(now);$('#note').value='';state.active={category,start:now,note:''};save();render();$('#note').focus()}
